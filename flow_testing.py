@@ -82,5 +82,5 @@ if 1 == 1:
         path="flow_testing.py",  # location of flow file in repo
         access_token_secret="MYSECRET"  # name of personal access token secret
     )
-    # f.executor = dask.LocalDaskExecutor(scheduler="processes")
+    f.executor = dask.LocalDaskExecutor(scheduler="processes")
     f.register(project_name="pre-play")
