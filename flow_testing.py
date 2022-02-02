@@ -73,6 +73,7 @@ if 1 == 0:
 # Dockerize the environment where the flow is running in
 if 1 == 1:
     # project should be created, first time = prefect create project 'pre-play'
+    # export PREFECT__CONTEXT__SECRETS__GHPAT=$(cat ~/....)
     from prefect.storage import GitHub
     from prefect.executors import dask
     from prefect.run_configs import DockerRun
@@ -80,7 +81,7 @@ if 1 == 1:
     f.storage = GitHub(
         repo="prinsniels/pre-play",  # name of repo
         path="flow_testing.py",  # location of flow file in repo
-        access_token_secret="MYSECRET"  # name of personal access token secret
+        access_token_secret="GHPAT"  # name of personal access token secret
     )
     f.executor = dask.LocalDaskExecutor(scheduler="processes")
     f.register(project_name="pre-play")
