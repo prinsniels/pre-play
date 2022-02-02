@@ -71,7 +71,7 @@ if 1 == 0:
     f.register(project_name="pre-play")
 
 # Dockerize the environment where the flow is running in
-if 1 == 1:
+if 1 == 0:
     # project should be created, first time = prefect create project 'pre-play'
     # export PREFECT__CONTEXT__SECRETS__GHPAT=$(cat ~/....)
     from prefect.storage import GitHub
@@ -85,3 +85,23 @@ if 1 == 1:
     )
     f.executor = dask.LocalDaskExecutor(scheduler="processes")
     f.register(project_name="pre-play")
+
+
+# Move the execution to k8s
+if 1 == 1:
+    # project should be created, first time = prefect create project 'pre-play'
+    # export PREFECT__CONTEXT__SECRETS__GHPAT=$(cat ~/....)
+    from prefect.storage import GitHub
+    from prefect.executors import dask
+    from prefect.run_configs import KubernetesRun
+    f = compose_alter_flow()
+    # Note that it is the agent that needs the acces token to be available
+    f.storage = GitHub(
+        repo="prinsniels/pre-play",  # name of repo
+        path="flow_testing.py",  # location of flow file in repo
+        access_token_secret="GHPAT"  # name of personal access token secret
+    )
+    f.run_config = KubernetesRun()
+    # f.executor = dask.LocalDaskExecutor(scheduler="processes")
+    f.register(project_name="pre-play")
+
