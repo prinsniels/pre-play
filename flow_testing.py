@@ -76,7 +76,7 @@ if 1 == 1:
     from prefect.storage import GitHub
     from prefect.executors import dask
     from prefect.run_configs import DockerRun
-    f = compose_alter_flow()
+    f = compose_flow()
     f.storage = GitHub(
         repo="prinsniels/pre-play",  # name of repo
         path="flow_testing.py",  # location of flow file in repo
