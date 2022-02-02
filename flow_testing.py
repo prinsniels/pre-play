@@ -101,7 +101,7 @@ if 1 == 1:
         path="flow_testing.py",  # location of flow file in repo
         access_token_secret="GHPAT"  # name of personal access token secret
     )
-    f.run_config = KubernetesRun(delete_job_after_completion=False)
+    f.run_config = KubernetesRun()
     # f.executor = dask.LocalDaskExecutor(scheduler="processes")
     f.register(project_name="pre-play")
 
